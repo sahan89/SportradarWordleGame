@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import static com.sportradar.wordle.constant.Constants.WORD_LENGTH;
-
 @Component
 public class GuessTheWord implements CommandLineRunner {
     private String randomSecretWord;
@@ -68,11 +66,11 @@ public class GuessTheWord implements CommandLineRunner {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
                 List<String> wordList = reader.lines()
                         .map(String::toLowerCase)
-                        .filter(word -> word.length() == WORD_LENGTH)
+                        .filter(word -> word.length() == Constants.WORD_LENGTH)
                         .toList();
 
                 if (wordList.isEmpty()) {
-                    throw new IllegalArgumentException("Word list cannot be empty or contain no " + WORD_LENGTH + "-letter words.");
+                    throw new IllegalArgumentException("Word list cannot be empty or contain no " + Constants.WORD_LENGTH + "-letter words.");
                 }
                 randomSecretWord = wordList.get(new Random().nextInt(wordList.size()));
             }
@@ -85,7 +83,7 @@ public class GuessTheWord implements CommandLineRunner {
         while (true) {
             System.out.print("Enter your 5-letter guess: ");
             String guess = scanner.nextLine().toLowerCase();
-            if (guess.length() != WORD_LENGTH) {
+            if (guess.length() != Constants.WORD_LENGTH) {
                 System.out.println("Invalid guess! Your guess must be exactly 5 letters.");
             } else {
                 return guess;
